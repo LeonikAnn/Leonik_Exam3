@@ -27,28 +27,19 @@ def polidrom(p):
 
 #Дописать в классы Company, Programmer абстрактные методы (хотя бы 1).
 # В коде должны быть Private и Protected методы и свойства
-# from abc import abstractmethod
-# @abstractmethod
-# def salary(self, index):
-#         if index == 1:
-#             self.salary = Company.default_salary + 1000
-#
-#         if index == 2:
-#             self.salary = Company.default_salary + 2000
-#         if index == 3:
-#             self.salary = Company.default_salary + 3000
-#         if index <= 4:
-#             self.salary = Company.default_salary + 5000
 class Company:
     default_salary = 1000
     levels= {1:'junior', 2:'middle', 3:'senior', 4:'lead'}
     def __init__(self, index):
-
         self._index = index
         self._levels =Company.levels[self._index]
         print(self._index, self._levels)
-    # def salary(self, index):
-    #     return self.salary(1)
+
+    from abc import abstractmethod
+    @abstractmethod
+    def studying(self):
+        print('studying completed')
+
     def _level_up(self):
         if self._index < 4:
             self._index +=1
@@ -63,16 +54,15 @@ class Company:
             print ('Последняя квалификация достигнута')
         else: print(f'Ваша квалификация: {self._index}')
 
-codehead = Company(1)
-# print(codehead.salary(1))
-print(codehead._level_up())
-codehead.is_lead()
 class Programmer(Company):
     def __init__(self, name, age):
         super().__init__(int(input('Введите ваш уровень:')))
         self. name = name
         self.age = age
         self.level = self.levels
+    def studying(self):
+        super().studying()
+
     def work(self):
         print('Working...')
         return self._level_up()
@@ -87,9 +77,12 @@ class Programmer(Company):
 Anya = Programmer('Anya', 26)
 Anya.work()
 Anya.info()
+Anya.studying()
 Programmer.knowledge_base()
-
-
+codehead = Company(1)
+print(codehead._level_up())
+codehead.is_lead()
+codehead.studying()
 
 #4. Создайте класс на тему животных. Используйте статические и динамические переменные,
 # дочерний (1 или более) классов на конкретное животное. Публичные и приватные методы.
